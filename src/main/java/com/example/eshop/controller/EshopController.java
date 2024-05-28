@@ -32,7 +32,7 @@ public class EshopController
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<> deleteProduct(@PathVariable String id)
+    public ResponseEntity<String> deleteProduct(@PathVariable String id)
     {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
