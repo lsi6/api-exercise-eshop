@@ -1,0 +1,11 @@
+
+-- CREATE DATABASE IF NOT EXISTS 'eshop'
+--     WITH
+--     ENCODING = 'UTF8'
+--     CONNECTION LIMIT = -1;
+SELECT 'CREATE DATABASE "eshop" ENCODING = ''UTF8'' CONNECTION LIMIT = -1'
+    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'eshop')\gexec
+
+\c eshop
+
+CREATE SCHEMA IF NOT EXISTS eshop;
