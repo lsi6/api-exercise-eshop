@@ -9,7 +9,7 @@ import java.util.Set;
 public class ProductLabel
 {
     @Id
-    private Integer id;
+    private int id;
 
     @Column(name = "label_text")
     private String labelText;
@@ -22,7 +22,7 @@ public class ProductLabel
      *
      * @return - The ID of the product label
      */
-    public Integer getId()
+    public int getId()
     {
         return this.id;
     }
@@ -32,7 +32,7 @@ public class ProductLabel
      *
      * @param id - The ID to set
      */
-    public void setId(Integer id)
+    public void setId(int id)
     {
         this.id = id;
     }

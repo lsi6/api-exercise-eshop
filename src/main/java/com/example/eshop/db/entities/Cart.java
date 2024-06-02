@@ -10,10 +10,13 @@ public class Cart
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
 
     @Column(name = "checked_out")
-    private Boolean checkedOut;
+    private boolean checkedOut;
+
+    @Column(name = "total_cost")
+    private double totalCost;
 
     @OneToMany(mappedBy = "cart")
     private Set<CartProduct> cartProducts;
@@ -23,7 +26,7 @@ public class Cart
      *
      * @return - The cart ID
      */
-    public Integer getId()
+    public int getId()
     {
         return id;
     }
@@ -33,7 +36,7 @@ public class Cart
      *
      * @param id - The ID to set
      */
-    public void setId(Integer id)
+    public void setId(int id)
     {
         this.id = id;
     }
@@ -43,19 +46,39 @@ public class Cart
      *
      * @return - Boolean representing if this cart is checked out or not
      */
-    public Boolean getCheckedOut()
+    public boolean getCheckedOut()
     {
         return this.checkedOut;
     }
 
     /**
-     * Method to set the check out boolean value
+     * Method to set the checked out boolean value
      *
      * @param checkedOut - Checkout out value to set
      */
-    public void setCheckedOut(Boolean checkedOut)
+    public void setCheckedOut(boolean checkedOut)
     {
         this.checkedOut = checkedOut;
+    }
+
+    /**
+     * Method to get the total cost of the shopping cart
+     *
+     * @return - The total cost of the shopping cart
+     */
+    public double getTotalCost()
+    {
+        return this.totalCost;
+    }
+
+    /**
+     * Method to set the total cost of the shopping cart
+     *
+     * @param totalCost - The value to set as the total cost
+     */
+    public void setTotalCost(double totalCost)
+    {
+        this.totalCost = totalCost;
     }
 
     /**

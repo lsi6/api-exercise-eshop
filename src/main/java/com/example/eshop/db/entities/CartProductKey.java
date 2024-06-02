@@ -9,17 +9,17 @@ import java.io.Serializable;
 public class CartProductKey implements Serializable
 {
     @Column(name = "cart_id")
-    private Integer cartId;
+    private int cartId;
 
     @Column(name = "product_id")
-    private Integer productId;
+    private int productId;
 
     /**
      * Method to get the cart ID
      *
      * @return - The cart ID
      */
-    public Integer getCartId()
+    public int getCartId()
     {
         return this.cartId;
     }
@@ -29,7 +29,7 @@ public class CartProductKey implements Serializable
      *
      * @param cartId - The cart ID to set
      */
-    public void setCartId(Integer cartId)
+    public void setCartId(int cartId)
     {
         this.cartId = cartId;
     }
@@ -39,7 +39,7 @@ public class CartProductKey implements Serializable
      *
      * @return - The product ID to set
      */
-    public Integer getProductId()
+    public int getProductId()
     {
         return this.productId;
     }
@@ -49,7 +49,7 @@ public class CartProductKey implements Serializable
      *
      * @param productId - The product ID to set
      */
-    public void setProductId(Integer productId)
+    public void setProductId(int productId)
     {
         this.productId = productId;
     }

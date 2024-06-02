@@ -41,12 +41,12 @@ public class ProductServiceImpl implements ProductService
      * @inheritDoc
      */
     @Override
-    public Product getProduct(final Integer id) throws NotFoundException
+    public Product getProduct(final int id) throws NotFoundException
     {
         Optional<Product> productEntity = this.productRepo.findById(id);
         if(productEntity.isEmpty())
         {
-            throw new NotFoundException("product", id.toString());
+            throw new NotFoundException("product", String.valueOf(id));
         }
         return null;
     }
@@ -64,7 +64,7 @@ public class ProductServiceImpl implements ProductService
      * @inheritDoc
      */
     @Override
-    public void deleteProduct(final Integer id)
+    public void deleteProduct(final int id)
     {
 
     }

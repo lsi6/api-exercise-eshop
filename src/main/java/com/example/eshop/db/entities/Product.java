@@ -11,13 +11,13 @@ public class Product
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "price")
-    private Double price;
+    private double price;
 
     @Column(name = "added_at")
     private Date addedAt;
@@ -34,7 +34,7 @@ public class Product
      *
      * @return - The ID
      */
-    public Integer getId()
+    public int getId()
     {
         return this.id;
     }
@@ -64,7 +64,7 @@ public class Product
      *
      * @return - The product price
      */
-    public Double getPrice()
+    public double getPrice()
     {
         return this.price;
     }
@@ -74,7 +74,7 @@ public class Product
      *
      * @param price - The price to set
      */
-    public void setPrice(Double price)
+    public void setPrice(double price)
     {
         this.price = price;
     }

@@ -21,7 +21,7 @@ public interface ProductService
      * @return - The found product
      * @throws NotFoundException - Thrown when a product could not be found with the given ID
      */
-    Product getProduct(final Integer id) throws NotFoundException;
+    Product getProduct(final int id) throws NotFoundException;
 
     /**
      * Method to save a new product to the database.
@@ -36,5 +36,5 @@ public interface ProductService
      *
      * @param id - The ID of the product to delete
      */
-    void deleteProduct(final Integer id);
+    void deleteProduct(final int id);
 }

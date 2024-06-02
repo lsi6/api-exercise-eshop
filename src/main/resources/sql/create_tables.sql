@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS eshop.product_label
 
 CREATE TABLE IF NOT EXISTS eshop.product_label_link
 (
-    product_id INTEGER NOT NULL,
+    product_id      INTEGER NOT NULL,
     label_link_id   INTEGER NOT NULL,
     PRIMARY KEY(product_id, label_link_id),
 
@@ -38,8 +38,9 @@ CREATE TABLE IF NOT EXISTS eshop.product_label_link
 
 CREATE TABLE IF NOT EXISTS eshop.cart
 (
-    id INTEGER PRIMARY KEY,
-    checked_out BOOLEAN NOT NULL
+    id          INTEGER          PRIMARY KEY,
+    checked_out BOOLEAN          NOT NULL,
+    total_cost  DOUBLE PRECISION NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS eshop.cart_product

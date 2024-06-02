@@ -10,7 +10,7 @@ public class CartProduct
     private CartProductKey id;
 
     @Column(name = "quantity")
-    private Integer quantity;
+    private int quantity;
 
     @ManyToOne
     @MapsId("cartId")
@@ -38,11 +38,11 @@ public class CartProduct
     }
 
     /**
-     * Method to get the qunatity of products
+     * Method to get the quantity of this product in the shopping cart
      *
-     * @return
+     * @return - The quantity of this product in the shopping cart
      */
-    public Integer getQuantity()
+    public int getQuantity()
     {
         return this.quantity;
     }
@@ -52,7 +52,7 @@ public class CartProduct
      *
      * @param quantity - The quantity to set
      */
-    public void setQuantity(Integer quantity)
+    public void setQuantity(int quantity)
     {
         this.quantity = quantity;
     }

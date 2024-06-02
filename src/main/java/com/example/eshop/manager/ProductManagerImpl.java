@@ -85,7 +85,7 @@ public class ProductManagerImpl implements ProductManager
      * @return - The converted Integer ID
      * @throws BadRequestException - Thrown if the input ID string cannot be converted into an Integer
      */
-    private Integer validateId(String id) throws BadRequestException
+    private int validateId(String id) throws BadRequestException
     {
         try
         {
@@ -93,7 +93,7 @@ public class ProductManagerImpl implements ProductManager
         }
         catch(NumberFormatException e)
         {
-            throw new BadRequestException(String.format("Invalid ID: Could not convert ID '%s' into an Integer.", id));
+            throw new BadRequestException(String.format("Invalid ID: Could not convert ID '%s' into an int.", id));
         }
     }
 
