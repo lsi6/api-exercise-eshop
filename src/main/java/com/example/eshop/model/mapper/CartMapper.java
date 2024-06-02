@@ -13,13 +13,6 @@ import java.util.Set;
 
 public class CartMapper
 {
-    public static Cart mapCartDtoToEntity(final CartDto cartDto)
-    {
-        Cart cart = new Cart();
-        cart.setCheckedOut(cartDto.getChecked_out());
-        return cart;
-    }
-
     public static CartDto mapCartEntityToDto(final Cart cart)
     {
         CartDto cartDto = new CartDto();

@@ -102,8 +102,8 @@ public class ProductManagerImpl implements ProductManager
         Set<ProductLabel> productLabels = new HashSet<>();
         for(String label: productDto.getLabels())
         {
-            // If the product label does not exist
             ProductLabel productLabel = this.productService.findLabelByText(label);
+            // If the product label does not exist, throw a BadRequestException
             if(productLabel == null)
             {
                 throw new BadRequestException(String.format("Invalid product label: product label was not one of the allowed values. " +

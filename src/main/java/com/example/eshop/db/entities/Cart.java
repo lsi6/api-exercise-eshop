@@ -18,7 +18,7 @@ public class Cart
     @Column(name = "total_cost")
     private double totalCost;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<CartProduct> cartProducts;
 
     /**
