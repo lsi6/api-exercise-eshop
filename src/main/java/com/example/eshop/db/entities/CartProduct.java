@@ -76,4 +76,12 @@ public class CartProduct
     {
         this.cart = cart;
     }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if(other == this) return true;
+        if(!(other instanceof CartProduct)) return false;
+        return ((CartProduct) other).getId().equals(this.id);
+    }
 }

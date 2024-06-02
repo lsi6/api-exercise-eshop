@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS eshop.cart;
 
 CREATE TABLE IF NOT EXISTS eshop.product
 (
-    id              INTEGER          PRIMARY KEY,
+    id              INTEGER          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name            VARCHAR(200)     NOT NULL UNIQUE,
     price           DOUBLE PRECISION NOT NULL,
     added_at        DATE             NOT NULL
@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS eshop.product_label_link
 
 CREATE TABLE IF NOT EXISTS eshop.cart
 (
-    id          INTEGER          PRIMARY KEY,
-    checked_out BOOLEAN          NOT NULL,
+    id          INTEGER          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    checked_out BOOLEAN          NOT NULL DEFAULT FALSE,
     total_cost  DOUBLE PRECISION NOT NULL
 );
 

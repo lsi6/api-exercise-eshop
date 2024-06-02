@@ -9,7 +9,7 @@ import java.util.Set;
 public class Cart
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "checked_out")

@@ -1,7 +1,10 @@
 package com.example.eshop.service;
 
 import com.example.eshop.db.entities.Product;
+import com.example.eshop.db.entities.ProductLabel;
+import com.example.eshop.db.repos.LabelRepo;
 import com.example.eshop.db.repos.ProductRepo;
+import com.example.eshop.exception.BadRequestException;
 import com.example.eshop.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +21,20 @@ public class ProductServiceImpl implements ProductService
     private final ProductRepo productRepo;
 
     /**
+     * Class defining methods to interact with the product table
+     */
+    private final LabelRepo labelRepo;
+
+    /**
      * Constructor
      *
      * @param productRepo - The product repository to autowire
      */
     @Autowired
-    public ProductServiceImpl(final ProductRepo productRepo)
+    public ProductServiceImpl(final ProductRepo productRepo, final LabelRepo labelRepo)
     {
         this.productRepo = productRepo;
+        this.labelRepo = labelRepo;
     }
 
     /**
@@ -48,7 +57,7 @@ public class ProductServiceImpl implements ProductService
         {
             throw new NotFoundException("product", String.valueOf(id));
         }
-        return null;
+        return productEntity.get();
     }
 
     /**
@@ -57,7 +66,7 @@ public class ProductServiceImpl implements ProductService
     @Override
     public Product persistProduct(final Product product)
     {
-        return null;
+        return this.productRepo.save(product);
     }
 
     /**
@@ -66,6 +75,24 @@ public class ProductServiceImpl implements ProductService
     @Override
     public void deleteProduct(final int id)
     {
+        this.productRepo.deleteById(id);
+    }
 
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public ProductLabel findLabelByText(final String labelText)
+    {
+        return this.labelRepo.findLabelByText(labelText);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Product findByName(final String name)
+    {
+        return this.productRepo.findProductByName(name);
     }
 }

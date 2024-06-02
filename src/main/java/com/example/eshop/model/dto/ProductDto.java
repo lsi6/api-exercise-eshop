@@ -25,7 +25,7 @@ public class ProductDto
     /**
      * The date the product was added to the catalogue
      */
-    private Date added_at;
+    private String added_at;
 
     /**
      * The category labels for the product
@@ -49,7 +49,7 @@ public class ProductDto
      * @param added_at   - The added_at date to set
      * @param labels     - The category labels to set
      */
-    public ProductDto(Integer product_id, String name, double price, Date added_at, String[] labels)
+    public ProductDto(Integer product_id, String name, double price, String added_at, String[] labels)
     {
         this.product_id = product_id;
         this.name = name;
@@ -93,7 +93,7 @@ public class ProductDto
      *
      * @param added_at - The date to set
      */
-    public void setAdded_at(Date added_at)
+    public void setAdded_at(String added_at)
     {
         this.added_at = added_at;
     }
@@ -143,7 +143,7 @@ public class ProductDto
      *
      * @return - The date the product was added to the catalogue
      */
-    public Date getAdded_at()
+    public String getAdded_at()
     {
         return this.added_at;
     }

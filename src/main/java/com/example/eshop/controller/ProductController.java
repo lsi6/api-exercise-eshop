@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -50,7 +51,8 @@ public class ProductController
     }
 
     @PostMapping(value = "/products", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductDto> postProduct(@RequestBody ProductDto inputProductDto) throws BadRequestException
+    public ResponseEntity<ProductDto> postProduct(@RequestBody ProductDto inputProductDto)
+            throws BadRequestException, ParseException
     {
         ProductDto newProduct = this.productManager.postProduct(inputProductDto);
         return ResponseEntity.status(HttpStatus.CREATED).headers(this.httpHeaders).body(newProduct);

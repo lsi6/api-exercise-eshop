@@ -10,7 +10,7 @@ import java.util.Set;
 public class Product
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name")
@@ -20,11 +20,13 @@ public class Product
     private double price;
 
     @Column(name = "added_at")
+    @Temporal(TemporalType.DATE)
     private Date addedAt;
 
     @ManyToMany
     @JoinTable(
         name = "product_label_link",
+        schema = "eshop",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "label_link_id"))
     private Set<ProductLabel> labels;

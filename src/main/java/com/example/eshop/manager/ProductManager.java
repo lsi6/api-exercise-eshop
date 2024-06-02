@@ -4,6 +4,7 @@ import com.example.eshop.exception.BadRequestException;
 import com.example.eshop.exception.NotFoundException;
 import com.example.eshop.model.dto.ProductDto;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface ProductManager
@@ -29,7 +30,7 @@ public interface ProductManager
      * @param productDto - The product to post
      * @return - The newly created resource
      */
-    ProductDto postProduct(final ProductDto productDto) throws BadRequestException;
+    ProductDto postProduct(final ProductDto productDto) throws BadRequestException, ParseException;
 
     /**
      * Method to delete a product from the database with the given ID.

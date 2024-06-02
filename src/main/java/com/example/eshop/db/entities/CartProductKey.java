@@ -3,16 +3,37 @@ package com.example.eshop.db.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Embeddable
 public class CartProductKey implements Serializable
 {
+    @Serial
+    private static final long serialVersionUID = 16829458569L;
+
     @Column(name = "cart_id")
     private int cartId;
 
     @Column(name = "product_id")
     private int productId;
+
+    public CartProductKey()
+    {
+
+    }
+
+    /**
+     * Constructor
+     *
+     * @param cartId - The cart ID to set
+     * @param productId - The product ID to set
+     */
+    public CartProductKey(final int cartId, final int productId)
+    {
+        this.cartId = cartId;
+        this.productId = productId;
+    }
 
     /**
      * Method to get the cart ID
@@ -52,5 +73,21 @@ public class CartProductKey implements Serializable
     public void setProductId(int productId)
     {
         this.productId = productId;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return this.cartId + this.productId;
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if(other == this) return true;
+        if(!(other instanceof CartProductKey comparisonObject)) return false;
+
+        return comparisonObject.getCartId() == this.cartId &&
+                comparisonObject.getProductId() == this.productId;
     }
 }
