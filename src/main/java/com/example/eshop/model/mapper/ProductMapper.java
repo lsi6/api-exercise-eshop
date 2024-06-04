@@ -11,13 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Utility class to map between product DTOs and entities.
+ */
 public class ProductMapper
 {
     /**
      * The date format to be used for the added_at value
      */
-    private static SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    private static final SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
+    /**
+     * Method to map a product DTO into a product entity.
+     *
+     * @param productDto - The product DTO to convert
+     * @param productLabels - The product labels belonging to this product
+     * @return - The converted product entity
+     * @throws BadRequestException - Thrown if the product added_at date was in an unexpected format
+     */
     public static Product mapProductDtoToEntity(ProductDto productDto, Set<ProductLabel> productLabels)
             throws BadRequestException
     {
@@ -40,6 +51,12 @@ public class ProductMapper
         return product;
     }
 
+    /**
+     * Method to map a product entity into a product DTO.
+     *
+     * @param product - The product entity to convert
+     * @return The converted product DTO
+     */
     public static ProductDto mapProductEntityToDto(Product product)
     {
         ProductDto productDto = new ProductDto();
@@ -57,6 +74,12 @@ public class ProductMapper
         return productDto;
     }
 
+    /**
+     * Method to map a list of product entities into a list of product DTOs.
+     *
+     * @param productList - The list of product entities to convert
+     * @return - The converted product DTOs
+     */
     public static List<ProductDto> mapProductEntityListToDtoList(List<Product> productList)
     {
         List<ProductDto> productDtos = new ArrayList<>();
