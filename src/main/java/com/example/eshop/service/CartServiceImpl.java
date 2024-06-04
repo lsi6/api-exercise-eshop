@@ -67,9 +67,11 @@ public class CartServiceImpl implements CartService
     @Override
     public Cart persistCart(final Cart cart)
     {
-        for(CartProduct cartProduct: cart.getCartProducts())
+        if(cart.getCartProducts() != null)
         {
-            this.cartProductRepo.save(cartProduct);
+            for (CartProduct cartProduct : cart.getCartProducts()) {
+                this.cartProductRepo.save(cartProduct);
+            }
         }
         return this.cartRepo.save(cart);
     }
