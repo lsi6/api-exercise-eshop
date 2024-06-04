@@ -76,7 +76,7 @@ public class CartManagerImpl implements CartManager
         }
 
         // Calculate the total cost of the new cart
-        cartEntity.setTotalCost(this.calculateCostOfProduct(cartProducts));
+        cartEntity.setTotalCost(this.calculateCostOfProducts(cartProducts));
 
         // Convert the new cart products DTO list into a set of entities
         Set<CartProduct> newCartProducts = new HashSet<>(
@@ -104,13 +104,13 @@ public class CartManagerImpl implements CartManager
     }
 
     /**
-     * Method to calculate the total cost of a given product taking into account the quantity.
+     * Method to calculate the total cost of the given products taking into account the quantity.
      *
-     * @param cartProductDtos - The cart product DTO object
-     * @return - The cost of the given product
-     * @throws NotFoundException - Thrown if the product could not be found
+     * @param cartProductDtos - The array of cart product DTOs to calculate the total cost from
+     * @return - The total cost of all the input products
+     * @throws NotFoundException - Thrown if a product could not be found
      */
-    private double calculateCostOfProduct(CartProductDto[] cartProductDtos) throws NotFoundException
+    private double calculateCostOfProducts(CartProductDto[] cartProductDtos) throws NotFoundException
     {
         double totalCost = 0;
         for(CartProductDto cartProductDto: cartProductDtos)
