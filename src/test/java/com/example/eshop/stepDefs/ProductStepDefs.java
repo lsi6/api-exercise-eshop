@@ -8,6 +8,7 @@ import com.example.eshop.db.repos.LabelRepo;
 import com.example.eshop.db.repos.ProductRepo;
 import com.example.eshop.model.dto.ProductDto;
 import com.example.eshop.model.mapper.ProductMapper;
+import com.example.eshop.util.DataLoader;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -34,39 +35,45 @@ public class ProductStepDefs
     /**
      * The date format to be used
      */
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
-    ProductRepo productRepo;
+    private ProductRepo productRepo;
 
     @Autowired
-    CartRepo cartRepo;
+    private CartRepo cartRepo;
 
     @Autowired
-    CartProductRepo cartProductRepo;
+    private CartProductRepo cartProductRepo;
 
     @Autowired
-    LabelRepo labelRepo;
+    private LabelRepo labelRepo;
 
     /**
      * Variable to hold the RestAssured response
      */
     private Response response;
 
+    /**
+     * Util class to load test data
+     */
+    private DataLoader dataLoader;
+
     @Before("@Component")
     public void before()
     {
         RestAssured.baseURI = "http://localhost:8080";
         RestAssured.port = 8080;
-        this.clearDatabase();
+        this.dataLoader = new DataLoader(productRepo, cartRepo, cartProductRepo, labelRepo);
+        this.dataLoader.clearDatabase();
     }
 
     @Given("products exist in the catalogue")
     public void addProducts() throws ParseException
     {
-        this.createProduct("bread", 1.20d, new String[]{"food"});
-        this.createProduct("milk", 1.10d, new String[]{"drink"});
-        this.createProduct("chocolate", 2.00d, new String[]{"food"});
+        this.dataLoader.createProduct("bread", 1.20d, new String[]{"food"});
+        this.dataLoader.createProduct("milk", 1.10d, new String[]{"drink"});
+        this.dataLoader.createProduct("chocolate", 2.00d, new String[]{"food"});
     }
 
     @When("I make a get request to get all products in the catalogue")
@@ -86,7 +93,7 @@ public class ProductStepDefs
     @When("I post a new product")
     public void postNewProduct()
     {
-        ProductDto productDto = this.createProductDto("cheese", 1.50, new String[]{"food"});
+        ProductDto productDto = this.dataLoader.createProductDto("cheese", 1.50, new String[]{"food"});
         this.response = RestAssured.with().body(productDto).contentType(MediaType.APPLICATION_JSON_VALUE).post("/products");
     }
 
@@ -99,7 +106,7 @@ public class ProductStepDefs
     @When("I post a product with an empty product name")
     public void postProductWithEmptyName()
     {
-        ProductDto productDto = this.createProductDto("", 1.50, new String[]{"food"});
+        ProductDto productDto = this.dataLoader.createProductDto("", 1.50, new String[]{"food"});
         this.response = RestAssured.with().body(productDto).contentType(MediaType.APPLICATION_JSON_VALUE).post("/products");
     }
 
@@ -112,7 +119,7 @@ public class ProductStepDefs
     @When("I post a product with a name with over 200 characters")
     public void postProductTooManyCharacters()
     {
-        ProductDto productDto = this.createProductDto(
+        ProductDto productDto = this.dataLoader.createProductDto(
                 "201Characters-fdsafasfewfeasfasefeasfdsafasfewfeasfasefeasfdsafasfewfeasfas" +
                         "efeasfdsafasfewfeasfasefeasfdsafasfewfeasfasefeasfdsafasfewfeasfasefeasfdsafasfew" +
                         "feasfasefeasfdsafasfewfeasfasefeasfdsafasfewd", 1.50, new String[]{"food"});
@@ -122,7 +129,7 @@ public class ProductStepDefs
     @When("I attempt to create a product with a name that already exists")
     public void duplicateName()
     {
-        ProductDto productDto = this.createProductDto("duplicateName", 1.50, new String[]{"food"});
+        ProductDto productDto = this.dataLoader.createProductDto("duplicateName", 1.50, new String[]{"food"});
         this.response = RestAssured.with().body(productDto).contentType(MediaType.APPLICATION_JSON_VALUE).post("/products");
         this.response = RestAssured.with().body(productDto).contentType(MediaType.APPLICATION_JSON_VALUE).post("/products");
     }
@@ -130,42 +137,8 @@ public class ProductStepDefs
     @When("I attempt to create a product with an invalid label")
     public void invalidLabel()
     {
-        ProductDto productDto = this.createProductDto("cheese", 1.50, new String[]{"invalidLabel"});
+        ProductDto productDto = this.dataLoader.createProductDto("cheese", 1.50, new String[]{"invalidLabel"});
         this.response = RestAssured.with().body(productDto).contentType(MediaType.APPLICATION_JSON_VALUE).post("/products");
     }
 
-    private void clearDatabase()
-    {
-        this.cartRepo.deleteAll();
-        this.cartProductRepo.deleteAll();
-        this.productRepo.deleteAll();
-    }
-
-    private ProductDto createProductDto(String name, double price, String[] labels)
-    {
-        ProductDto productDto = new ProductDto();
-        productDto.setName(name);
-        productDto.setPrice(price);
-        productDto.setLabels(labels);
-        return productDto;
-    }
-
-    private Product createProduct(String name, double price, String[] labels) throws ParseException
-    {
-        Product product = new Product();
-        product.setName(name);
-        product.setPrice(price);
-        product.setAddedAt(dateFormat.parse(LocalDate.now().toString()));
-        Set<ProductLabel> productLabels = new HashSet<>();
-        for(String label: labels)
-        {
-            ProductLabel productLabel = this.labelRepo.findLabelByText(label);
-
-            productLabels.add(productLabel);
-        }
-
-        product.setLabels(productLabels);
-
-        return this.productRepo.save(product);
-    }
 }

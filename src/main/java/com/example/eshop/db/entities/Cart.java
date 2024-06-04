@@ -18,7 +18,7 @@ public class Cart
     @Column(name = "total_cost")
     private double totalCost;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.REMOVE)
     private Set<CartProduct> cartProducts;
 
     /**
