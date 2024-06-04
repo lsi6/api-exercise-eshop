@@ -36,7 +36,7 @@ public class ProductController
         this.productManager = productManager;
     }
 
-    @GetMapping("/products")
+    @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductDto>> listProducts()
     {
         List<ProductDto> products = this.productManager.getAllProducts();

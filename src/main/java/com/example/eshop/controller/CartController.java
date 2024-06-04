@@ -37,7 +37,7 @@ public class CartController
         this.cartManager = cartManager;
     }
 
-    @GetMapping("/carts")
+    @GetMapping(value = "/carts", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CartDto>> listCarts()
     {
         List<CartDto> carts = this.cartManager.getAllCarts();
@@ -51,7 +51,7 @@ public class CartController
         return ResponseEntity.status(HttpStatus.CREATED).headers(this.httpHeaders).body(newCartDto);
     }
 
-    @PostMapping(value = "/carts/{id}/checkout", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/carts/{id}/checkout", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<CheckedOutCartDto> checkoutCart(@PathVariable String id)
             throws BadRequestException, NotFoundException
     {
